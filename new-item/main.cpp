@@ -24,7 +24,7 @@ invocation_response my_handler(invocation_request const& request) {
 #endif // LOGGING
 
 
-	// Check to see if jwt token was included
+	// Check if jwt token was included
 	std::string jwt;
 	try {
 		jwt = payload.at("headers").at("Authorization").get<std::string>();
@@ -40,22 +40,15 @@ invocation_response my_handler(invocation_request const& request) {
 		Aws::SDKOptions options;
 		Aws::InitAPI(options);
 
-		nlohmann::json parameters = payload.at("queryStringParameters");
+		nlohmann::json body = payload.at("body");
 
-		// Create a Primary key(simple or composite)
-		alddb::DynamoDB::PrimaryKey pk(parameters);
 
-		// Run operation 
-		nlohmann::json result;
-		alddb::DynamoDB::get_item(ddbcli(), "Vitanza", pk, result);
 
-		// Set response body and status code
-		// If its empty then 204, else 200
-		if (result.empty()) {
-			response["statusCode"] = 204;
+		if (alddb::DynamoDB::put_item(ddbcli(), body, "Vitanza")) {
+			response["statusCode"] = 201;
 		} else {
-			response["body"] = result.dump();
-			response["statusCode"] = 200;
+			response["body"] = "Bad request, failed to insert record";
+			response["statusCode"] = 400;
 		}
 	}
 
