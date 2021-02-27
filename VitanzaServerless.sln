@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "authenticate", "authenticat
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "common", "common\common.vcxproj", "{64170EEB-079D-4693-891E-D3D643C6FEB9}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "get-item", "get-item\get-item.vcxproj", "{DC80C27D-0BFC-4CA3-9E73-3E869EE09CFF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM
@@ -57,6 +59,18 @@ Global
 		{64170EEB-079D-4693-891E-D3D643C6FEB9}.Release|x64.Build.0 = Release|x64
 		{64170EEB-079D-4693-891E-D3D643C6FEB9}.Release|x86.ActiveCfg = Release|Win32
 		{64170EEB-079D-4693-891E-D3D643C6FEB9}.Release|x86.Build.0 = Release|Win32
+		{DC80C27D-0BFC-4CA3-9E73-3E869EE09CFF}.Debug|ARM.ActiveCfg = Debug|Win32
+		{DC80C27D-0BFC-4CA3-9E73-3E869EE09CFF}.Debug|ARM64.ActiveCfg = Debug|Win32
+		{DC80C27D-0BFC-4CA3-9E73-3E869EE09CFF}.Debug|x64.ActiveCfg = Debug|x64
+		{DC80C27D-0BFC-4CA3-9E73-3E869EE09CFF}.Debug|x64.Build.0 = Debug|x64
+		{DC80C27D-0BFC-4CA3-9E73-3E869EE09CFF}.Debug|x86.ActiveCfg = Debug|Win32
+		{DC80C27D-0BFC-4CA3-9E73-3E869EE09CFF}.Debug|x86.Build.0 = Debug|Win32
+		{DC80C27D-0BFC-4CA3-9E73-3E869EE09CFF}.Release|ARM.ActiveCfg = Release|Win32
+		{DC80C27D-0BFC-4CA3-9E73-3E869EE09CFF}.Release|ARM64.ActiveCfg = Release|Win32
+		{DC80C27D-0BFC-4CA3-9E73-3E869EE09CFF}.Release|x64.ActiveCfg = Release|x64
+		{DC80C27D-0BFC-4CA3-9E73-3E869EE09CFF}.Release|x64.Build.0 = Release|x64
+		{DC80C27D-0BFC-4CA3-9E73-3E869EE09CFF}.Release|x86.ActiveCfg = Release|Win32
+		{DC80C27D-0BFC-4CA3-9E73-3E869EE09CFF}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
