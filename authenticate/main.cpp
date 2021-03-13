@@ -65,14 +65,17 @@ invocation_response my_handler(invocation_request const& request) {
 	std::string pwd = body.at("password").get<std::string>();
 	std::string hashed_pwd = hash_password(pwd, usr);
 
+	
+	nlohmann::json values;
+	values["username"] = usr;
 
 	// Run operation 
 	nlohmann::json result;
-	alddb::DynamoDB::query_with_expression(ddbcli(), "users", "username", "username = :username", body, result);
+	alddb::DynamoDB::query_with_expression(ddbcli(), "users", "username", "username = :username", values, result);
 
-	//std::map<std::string, std::string> user = result;
-	/*
 	try {
+		std::map<std::string, std::string> user = result[0];
+
 		bool valid_usr = false;
 		bool valid_pwd = false;
 
@@ -98,8 +101,8 @@ invocation_response my_handler(invocation_request const& request) {
 		response["message"] = ex.what();
 		response["statusCode"] = 400;
 	}
-	*/
-	return invocation_response::success(result.dump(), "application/json");
+	
+	return invocation_response::success(response.dump(), "application/json");
 }
 
 
