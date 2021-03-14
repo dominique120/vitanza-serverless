@@ -40,7 +40,7 @@ inline std::unique_ptr<Aws::DynamoDB::DynamoDBClient> ddbcli() {
 
 // Same function as Vitanza service but removed references to g_config for SHA512_SECRET and JWT_ISSUER
 // Issuer is also changed
-inline bool validate_token(const std::string& token_header) {
+inline bool validate_token(const std::string& token_header, std::string& error) {
 	try {
 		std::string token = token_header;
 
@@ -63,13 +63,17 @@ inline bool validate_token(const std::string& token_header) {
 		verifier.verify(decoded);
 		return true;
 
-	} catch (jwt::token_verification_exception&) {
+	} catch (const jwt::token_verification_exception& e) {
+		error = e.what();
 		return false;
-	} catch (nlohmann::json::exception&) {
+	} catch (const nlohmann::json::exception& e) {
+		error = e.what();
 		return false;
-	} catch (std::invalid_argument&) {
+	} catch (const std::invalid_argument& e) {
+		error = e.what();
 		return false;
-	} catch (std::runtime_error&) {
+	} catch (const std::runtime_error& e) {
+		error = e.what();
 		return false;
 	}
 }

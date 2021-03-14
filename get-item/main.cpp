@@ -33,9 +33,10 @@ invocation_response my_handler(invocation_request const& request) {
 		response["message"] = "Authorization header not found. Must supply Authorization header.";
 		return invocation_response::success(response.dump(), "application/json");
 	}
-
-	if (!validate_token(jwt)) {
+	std::string error;
+	if (!validate_token(jwt, error)) {
 		response["statusCode"] = 403;
+		response["message"] = error;
 	} else {
 		Aws::SDKOptions options;
 		Aws::InitAPI(options);
