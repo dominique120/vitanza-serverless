@@ -27,10 +27,10 @@ invocation_response my_handler(invocation_request const& request) {
 	// Check if jwt token was included
 	std::string jwt;
 	try {
-		jwt = payload.at("headers").at("Authorization").get<std::string>();
+		jwt = payload.at("headers").at("x-vts-auth").get<std::string>();
 	} catch (nlohmann::json::exception& e) {
 		response["statusCode"] = 403;
-		response["message"] = "Authorization header not found. Must supply Authorization header.";
+		response["message"] = "x-vts-auth header not found. Must supply x-vts-auth header with bearer token.";
 		return invocation_response::success(response.dump(), "application/json");
 	}
 

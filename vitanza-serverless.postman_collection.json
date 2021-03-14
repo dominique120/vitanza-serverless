@@ -1,0 +1,121 @@
+{
+	"info": {
+		"_postman_id": "af8e2346-86d5-4c2a-a883-f826ac270411",
+		"name": "vitanza-serverless",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authorization",
+			"item": [
+				{
+					"name": "Auth",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\" : \"username\",\r\n    \"password\" : \"password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://a20gat4r39.execute-api.us-east-1.amazonaws.com/auth",
+							"protocol": "https",
+							"host": [
+								"a20gat4r39",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Client",
+			"item": [
+				{
+					"name": "Get Client - AP 2",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-vts-auth",
+								"value": "{{jwt}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://q1ad4g4yi0.execute-api.us-east-1.amazonaws.com/get-item?SK=CLI|a7vxc&PK=CLI|a7vxc",
+							"protocol": "https",
+							"host": [
+								"q1ad4g4yi0",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"get-item"
+							],
+							"query": [
+								{
+									"key": "SK",
+									"value": "CLI|a7vxc"
+								},
+								{
+									"key": "PK",
+									"value": "CLI|a7vxc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Client",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-vts-auth",
+								"value": "{{jwt}}",
+								"type": "text"
+							}
+						],
+						"url": null
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Orders",
+			"item": []
+		},
+		{
+			"name": "Products",
+			"item": []
+		},
+		{
+			"name": "Users",
+			"item": []
+		}
+	]
+}

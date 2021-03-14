@@ -37,15 +37,19 @@ inline std::unique_ptr<Aws::DynamoDB::DynamoDBClient> ddbcli() {
 		std::make_unique<Aws::DynamoDB::DynamoDBClient>(credentialsProvider, config);
 	return cli;
 }
-
-// Same function as Vitanza service but removed references to g_config for SHA512_SECRET and JWT_ISSUER
-// Issuer is also changed
+/*
+* - Same function as Vitanza service but removed references to g_config for SHA512_SECRET and JWT_ISSUER
+* - Issuer is also changed
+* - Since Api gateway will not forward the Authorization method to the lambda function 
+*	we will use a custom header to send our bearer token.
+*/
 inline bool validate_token(const std::string& token_header, std::string& error) {
 	try {
 		std::string token = token_header;
 
 		// Remove the "Bearer " section of the header
-		token.erase(0, 7);
+		// "Bearer " not used for api gateway x-vts-auth header
+		// token.erase(0, 7);
 
 		const auto decoded = jwt::decode(token);
 
