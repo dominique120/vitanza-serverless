@@ -24,25 +24,25 @@ invocation_response my_handler(invocation_request const& request) {
 #endif // LOGGING
 
 
-	// Check if jwt token was included
+	// Check to see if jwt token was included
 	std::string jwt;
 	try {
 		jwt = payload.at("headers").at("x-vts-auth").get<std::string>();
-	} catch (nlohmann::json::exception& e) {
+	} catch (nlohmann::json::exception&) {
 		response["statusCode"] = 403;
-		response["message"] = "x-vts-auth header not found. Must supply x-vts-auth header with bearer token.";
+		response["message"] = "x-vts-auth header not found. Must supply \"x-vts-auth\" header with bearer token.";
 		return invocation_response::success(response.dump(), "application/json");
 	}
-
-	if (!validate_token(jwt)) {
+	std::string error;
+	nlohmann::json body;
+	if (!validate_token(jwt, error)) {
 		response["statusCode"] = 403;
+		response["message"] = error;
 	} else {
 		Aws::SDKOptions options;
 		Aws::InitAPI(options);
 
-		nlohmann::json body = payload.at("body");
-
-
+		body = nlohmann::json::parse(payload.at("body").get<std::string>());
 
 		if (alddb::DynamoDB::put_item(ddbcli(), body, "Vitanza")) {
 			response["statusCode"] = 201;
