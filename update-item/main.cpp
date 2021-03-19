@@ -64,12 +64,12 @@ invocation_response my_handler(invocation_request const& request) {
 		*	}
 		*/
 
-		body = nlohmann::json::parse(payload.at("body").get<std::string>());
+		body = payload.at("body");
 
 		// Create a Primary key(simple or composite)
 		alddb::DynamoDB::PrimaryKey pk(body.at("primarykey"));
 
-		std::string expression = nlohmann::json::parse(body.at("expression").get<std::string>());
+		//std::string expression = nlohmann::json::parse(body.at("expression").get<std::string>());
 		nlohmann::json contents = body.at("contents");
 
 

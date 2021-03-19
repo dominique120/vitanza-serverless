@@ -42,7 +42,7 @@ invocation_response my_handler(invocation_request const& request) {
 		Aws::SDKOptions options;
 		Aws::InitAPI(options);
 
-		body = nlohmann::json::parse(payload.at("body").get<std::string>());
+		body = payload.at("body");
 
 		if (alddb::DynamoDB::put_item(ddbcli(), body, "Vitanza")) {
 			response["statusCode"] = 201;
