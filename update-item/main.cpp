@@ -48,19 +48,17 @@ invocation_response my_handler(invocation_request const& request) {
 		* general update request body structure:
 		* "expression" will be used for another, future function
 		* 
-		* "body" : {
-		*		"update_request" : {
-		*				"expression" : "xx_expression_xx",
-		*				"primarykey" : {
-		*								"PK" : "xxxx",
-		*								"SK" : "xxxx"
-		*								},
-		*				"contents" : {
-		*								"value1" : "xxxx",
-		*								"value2" : "xxxx",
-		*								"value3" : "xxxx"
-		*							}
-		*			}
+		* "body" : {	
+		*			"expression" : "xx_expression_xx",
+		*			"primarykey" : {
+		*							"PK" : "xxxx",
+		*							"SK" : "xxxx"
+		*							},
+		*			"contents" : {
+		*							"value1" : "xxxx",
+		*							"value2" : "xxxx",
+		*							"value3" : "xxxx"
+		*					}			
 		*	}
 		*/
 
