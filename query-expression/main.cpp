@@ -61,8 +61,8 @@ invocation_response my_handler(invocation_request const& request) {
 		body = nlohmann::json::parse(payload.at("body").get<std::string>());
 
 		// get data for our query function
-		std::string expression = nlohmann::json::parse(body.at("expression").get<std::string>());
-		std::string keyname = nlohmann::json::parse(body.at("key_name").get<std::string>());
+		std::string expression = body.at("expression").get<std::string>();
+		std::string keyname = body.at("key_name").get<std::string>();
 		nlohmann::json expression_values = body.at("expression_values");
 
 		// create result and run query

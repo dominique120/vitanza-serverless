@@ -53,6 +53,8 @@ invocation_response my_handler(invocation_request const& request) {
 		// Set response body and status code
 		// If its empty then 204, else 200
 		if (result) {
+
+			// Would be good to add a record count or something
 			response["statusCode"] = 200;
 		} else {
 			response["statusCode"] = 400;
