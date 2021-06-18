@@ -15,6 +15,11 @@ invocation_response my_handler(invocation_request const& request) {
 	nlohmann::json response;
 	response["isBase64Encoded"] = false;
 	response["headers"]["Content-Type"] = "application/json";
+	response["headers"]["Access-Control-Allow-Origin"] = "http://localhost:4200";
+	response["headers"]["Access-Control-Allow-Credentials"] = "true";
+	response["headers"]["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS";
+	response["headers"]["Access-Control-Max-Age"] = 8600;
+	response["headers"]["Access-Control-Allow-Headers"] = "x-vts-auth";
 
 	Aws::SDKOptions options;
 
