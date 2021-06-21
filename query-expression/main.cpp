@@ -58,6 +58,7 @@ invocation_response my_handler(invocation_request const& request) {
 		* "body" : {
 		*		"expression" : "xx_expression_xx",
 		*		"key_name"  : "xxxx",
+		*		"projection" : xxxxx",
 		*		"expression_values" : {
 		*						"value1" : "xxxx",
 		*						"value2" : "xxxx",
@@ -73,9 +74,19 @@ invocation_response my_handler(invocation_request const& request) {
 		std::string keyname = body.at("key_name").get<std::string>();
 		nlohmann::json expression_values = body.at("expression_values");
 
+		// Get Projection Expression
+		std::string projection = body.at("projection").get<std::string>();
+
 		// create result and run query
 		nlohmann::json result;
-		alddb::DynamoDB::query_with_expression(ddbcli(), "Vitanza", keyname.c_str(), expression.c_str(), expression_values, result);
+
+		alddb::DynamoDB::query_with_expression(ddbcli(),
+			"Vitanza",
+			keyname.c_str(),
+			expression.c_str(),
+			expression_values,
+			projection.c_str(),
+			result);
 		
 		// create response based on query result
 		if (result.empty()) {
