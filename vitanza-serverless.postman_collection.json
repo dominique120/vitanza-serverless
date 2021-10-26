@@ -10,11 +10,8 @@
 			"item": [
 				{
 					"name": "Auth",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
@@ -99,7 +96,141 @@
 								"type": "text"
 							}
 						],
-						"url": null
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Address1\": \"Calle 5 # 109 \",\r\n    \"Email\": \"email@gmail.com\",\r\n    \"GSI1PK\": \"Juan Perez\",\r\n    \"GSI1SK\": \"La Molina\",\r\n    \"GSI2PK\": \"ACTIVE\",\r\n    \"PK\": \"CLI|a7vxc\",\r\n    \"Phone1\": \"951875215\",\r\n    \"Phone2\": \"4156251\",\r\n    \"SK\": \"CLI|a7vxc\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://d9dhjyl9tb.execute-api.us-east-1.amazonaws.com/new-item",
+							"protocol": "https",
+							"host": [
+								"d9dhjyl9tb",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"new-item"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update client",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-vts-auth",
+								"value": "{{jwt}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"contents\": {\r\n      \"Address1\": \"Calle 5 # 109 \",\r\n      \"Email\": \"email@gmail.com\",\r\n      \"GSI1PK\": \"Juan Perez\",\r\n      \"GSI1SK\": \"La Molina\",\r\n      \"GSI2PK\": \"ACTIVE\",\r\n      \"Phone1\": \"951875215\",\r\n      \"Phone2\": \"4156251\"\r\n    },\r\n    \"primarykey\": {\r\n      \"PK\": \"CLI|abcdef\",\r\n      \"SK\": \"CLI|abcdef\"\r\n    }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://kq3635jygd.execute-api.us-east-1.amazonaws.com/update-item",
+							"protocol": "https",
+							"host": [
+								"kq3635jygd",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"update-item"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-client(test)",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-vts-auth",
+								"value": "{{jwt}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://v7p5ev9w6h.execute-api.us-east-1.amazonaws.com/delete-item?SK=CLI|abcdef&PK=CLI|",
+							"protocol": "https",
+							"host": [
+								"v7p5ev9w6h",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"delete-item"
+							],
+							"query": [
+								{
+									"key": "SK",
+									"value": "CLI|abcdef"
+								},
+								{
+									"key": "PK",
+									"value": "CLI|"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Clients by Status - AP 1",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-vts-auth",
+								"value": "{{jwt}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"expression\": \"GSI2PK = :status\",\r\n    \"key_name\": \"GSI2PK\",\r\n    \"projection\": \"PK, GSI1PK, GSI1SK, Address1, Phone1\",\r\n    \"expression_values\": {\r\n        \"status\": \"ACTIVE\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://cc0c87e7vc.execute-api.us-east-1.amazonaws.com/query-expression-2",
+							"protocol": "https",
+							"host": [
+								"cc0c87e7vc",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"query-expression-2"
+							]
+						}
 					},
 					"response": []
 				}
@@ -107,15 +238,474 @@
 		},
 		{
 			"name": "Orders",
-			"item": []
+			"item": [
+				{
+					"name": "Get Orders by Client - AP 3",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-vts-auth",
+								"value": "{{jwt}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"expression\": \"PK = :PK and begins_with(SK, :order)\",\r\n    \"key_name\": \"\",\r\n    \"projection\": \"\",\r\n    \"expression_values\": {\r\n        \"order\": \"ORD\",\r\n        \"PK\": \"CLI|a7vxc\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://cc0c87e7vc.execute-api.us-east-1.amazonaws.com/query-expression-2",
+							"protocol": "https",
+							"host": [
+								"cc0c87e7vc",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"query-expression-2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get orders by status - AP 5",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-vts-auth",
+								"value": "{{jwt}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"expression\":\"GSI2PK = :status\",\"projection\": \"\",\"key_name\":\"GSI2PK\",\"expression_values\":{\"status\":\"P_PAY\"}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://cc0c87e7vc.execute-api.us-east-1.amazonaws.com/query-expression-2",
+							"protocol": "https",
+							"host": [
+								"cc0c87e7vc",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"query-expression-2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Order - AP 7",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-vts-auth",
+								"value": "{{jwt}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://q1ad4g4yi0.execute-api.us-east-1.amazonaws.com/get-item?SK=ORD|d51a9&PK=CLI|a7vxc",
+							"protocol": "https",
+							"host": [
+								"q1ad4g4yi0",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"get-item"
+							],
+							"query": [
+								{
+									"key": "SK",
+									"value": "ORD|d51a9"
+								},
+								{
+									"key": "PK",
+									"value": "CLI|a7vxc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Order Details - AP 8",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-vts-auth",
+								"value": "{{jwt}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"expression\": \"PK = :PK and begins_with(SK, :odd)\",\r\n    \"key_name\": \"\",\r\n    \"projection\": \"\",\r\n    \"expression_values\": {\r\n        \"PK\": \"ORD|d51a9\",\r\n        \"odd\": \"ODD\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://cc0c87e7vc.execute-api.us-east-1.amazonaws.com/query-expression-2",
+							"protocol": "https",
+							"host": [
+								"cc0c87e7vc",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"query-expression-2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "Products",
-			"item": []
+			"item": [
+				{
+					"name": "Get Product - AP 9",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-vts-auth",
+								"value": "{{jwt}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://q1ad4g4yi0.execute-api.us-east-1.amazonaws.com/get-item?SK=Filter&PK=PRO|9dsf1",
+							"protocol": "https",
+							"host": [
+								"q1ad4g4yi0",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"get-item"
+							],
+							"query": [
+								{
+									"key": "SK",
+									"value": "Filter"
+								},
+								{
+									"key": "PK",
+									"value": "PRO|9dsf1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get current stock - AP 10",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-vts-auth",
+								"value": "{{jwt}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"expression\": \"GSI1PK = :gsi and begins_with(GSI1SK, :pro)\",\r\n    \"key_name\": \"GSI1PK\",\r\n    \"projection\": \"\",\r\n    \"expression_values\": {\r\n        \"gsi\": \"Filter\",\r\n        \"pro\": \"PRO\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://cc0c87e7vc.execute-api.us-east-1.amazonaws.com/query-expression-2",
+							"protocol": "https",
+							"host": [
+								"cc0c87e7vc",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"query-expression-2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Products by Status - AP 15",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-vts-auth",
+								"value": "{{jwt}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"expression\": \"GSI2PK = :status\",\r\n    \"key_name\": \"GSI2PK\",\r\n    \"projection\": \"\",\r\n    \"expression_values\": {\r\n        \"status\": \"Active\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://cc0c87e7vc.execute-api.us-east-1.amazonaws.com/query-expression-2",
+							"protocol": "https",
+							"host": [
+								"cc0c87e7vc",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"query-expression-2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "Users",
 			"item": []
+		},
+		{
+			"name": "Filters",
+			"item": [
+				{
+					"name": "Filter inst. by client - AP 4",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-vts-auth",
+								"value": "{{jwt}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"expression\": \"PK = :PK and begins_with(SK, :fli)\",\r\n    \"key_name\": \"\",\r\n    \"expression_values\": {\r\n        \"fli\": \"FLI\",\r\n        \"PK\": \"CLI|a7vxc\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://cc0c87e7vc.execute-api.us-east-1.amazonaws.com/query-expression-2",
+							"protocol": "https",
+							"host": [
+								"cc0c87e7vc",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"query-expression-2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get filter install - AP 6",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-vts-auth",
+								"value": "{{jwt}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://q1ad4g4yi0.execute-api.us-east-1.amazonaws.com/get-item?SK=FLI|sd654f&PK=CLI|a7vxc",
+							"protocol": "https",
+							"host": [
+								"q1ad4g4yi0",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"get-item"
+							],
+							"query": [
+								{
+									"key": "SK",
+									"value": "FLI|sd654f"
+								},
+								{
+									"key": "PK",
+									"value": "CLI|a7vxc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change by Install - AP 12",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-vts-auth",
+								"value": "{{jwt}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"expression\": \"PK = :pk and begins_with(SK, :flc)\",\r\n    \"key_name\": \"\",\r\n    \"expression_values\": {\r\n        \"flc\": \"FLC\",\r\n        \"pk\": \"FLI|sd654f\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://cc0c87e7vc.execute-api.us-east-1.amazonaws.com/query-expression-2",
+							"protocol": "https",
+							"host": [
+								"cc0c87e7vc",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"query-expression-2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change by status and date range - AP 13",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-vts-auth",
+								"value": "{{jwt}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"expression\": \"GSI1PK = :status AND GSI1SK BETWEEN :start AND :end\",\r\n    \"key_name\": \"GSI1PK\",\r\n    \"expression_values\": {\r\n        \"status\": \"UPCOMING\",\r\n        \"start\": \"11/12/2010\",\r\n        \"end\": \"12/12/2030\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://cc0c87e7vc.execute-api.us-east-1.amazonaws.com/query-expression-2",
+							"protocol": "https",
+							"host": [
+								"cc0c87e7vc",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"query-expression-2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Notes",
+			"item": [
+				{
+					"name": "Get notes by status - AP 11",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-vts-auth",
+								"value": "{{jwt}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"expression\": \"GSI1PK = :status\",\r\n    \"key_name\": \"GSI1PK\",\r\n    \"expression_values\": {\r\n        \"status\": \"OPEN\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://cc0c87e7vc.execute-api.us-east-1.amazonaws.com/query-expression-2",
+							"protocol": "https",
+							"host": [
+								"cc0c87e7vc",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"query-expression-2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
